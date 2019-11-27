@@ -25,7 +25,7 @@ object Generator {
   def elementMenu(): Unit = {
     val builder = new StringBuilder("\n>> ADD ELEMENT <<")
     for (st <- SchemaType.values) builder.append(s"\n${st.abbr}:\t${st}")
-    printf(builder.append("\n>").toString)
+    printf(builder.append("\n> ").toString)
   }
 
   private var schemaElements = mutable.Stack[SchemaType.Value]()
@@ -37,7 +37,7 @@ object Generator {
   private def process(command: Command.Value): Boolean = {
     command match {
       case Command.Print =>
-        printf("TODO: print\n")
+        printf("[TODO] print JSON\n")
         true
       case Command.AddElement =>
         val e = whichSchemaElement
@@ -93,7 +93,9 @@ object Generator {
       printf(s"[ERROR] Invalid input: '$response'\n")
       askUser(printMenu, validResponse, map)
     } else {
-      map(upperChar(response))
+      val r = upperChar(response)
+      printf(s"$r\n")
+      map(r)
     }
   }
 
